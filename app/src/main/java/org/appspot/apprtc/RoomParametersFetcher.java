@@ -14,10 +14,8 @@ import org.appspot.apprtc.AppRTCClient.SignalingParameters;
 import org.appspot.apprtc.util.AsyncHttpURLConnection;
 import org.appspot.apprtc.util.AsyncHttpURLConnection.AsyncHttpEvents;
 
-import android.net.Uri;
 import android.util.Log;
 
-import org.appspot.apprtc.util.JsonPrintUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
