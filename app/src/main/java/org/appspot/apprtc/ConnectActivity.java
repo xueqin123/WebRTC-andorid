@@ -12,6 +12,7 @@ package org.appspot.apprtc;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -135,22 +136,9 @@ public class ConnectActivity extends Activity {
         keyprefDataProtocol = getString(R.string.pref_data_protocol_key);
         keyprefNegotiated = getString(R.string.pref_negotiated_key);
         keyprefDataId = getString(R.string.pref_data_id_key);
-
         setContentView(R.layout.activity_connect);
-
         roomEditText = (EditText) findViewById(R.id.room_edittext);
-        roomEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if (i == EditorInfo.IME_ACTION_DONE) {
-                    addFavoriteButton.performClick();
-                    return true;
-                }
-                return false;
-            }
-        });
         roomEditText.requestFocus();
-
         roomListView = (ListView) findViewById(R.id.room_listview);
         roomListView.setEmptyView(findViewById(android.R.id.empty));
         roomListView.setOnItemClickListener(roomListClickListener);
@@ -587,6 +575,11 @@ public class ConnectActivity extends Activity {
         }
     }
 
+    /**
+     * 验证Url
+     * @param url
+     * @return
+     */
     private boolean validateUrl(String url) {
         if (URLUtil.isHttpsUrl(url) || URLUtil.isHttpUrl(url)) {
             return true;

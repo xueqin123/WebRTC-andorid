@@ -15,6 +15,8 @@ import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -43,6 +45,8 @@ import org.webrtc.MediaStream;
 import org.webrtc.PeerConnection;
 import org.webrtc.PeerConnection.IceConnectionState;
 import org.webrtc.PeerConnectionFactory;
+import org.webrtc.RTCStatsCollectorCallback;
+import org.webrtc.RTCStatsReport;
 import org.webrtc.RtpParameters;
 import org.webrtc.RtpReceiver;
 import org.webrtc.RtpSender;
@@ -1154,6 +1158,7 @@ public class PeerConnectionClient {
   private class PCObserver implements PeerConnection.Observer {
     @Override
     public void onIceCandidate(final IceCandidate candidate) {
+      Log.d(TAG, "onIceCandidate()");
       executor.execute(new Runnable() {
         @Override
         public void run() {
@@ -1164,6 +1169,7 @@ public class PeerConnectionClient {
 
     @Override
     public void onIceCandidatesRemoved(final IceCandidate[] candidates) {
+      Log.d(TAG, "onIceCandidatesRemoved()");
       executor.execute(new Runnable() {
         @Override
         public void run() {
@@ -1179,10 +1185,10 @@ public class PeerConnectionClient {
 
     @Override
     public void onIceConnectionChange(final PeerConnection.IceConnectionState newState) {
+      Log.d(TAG, "onIceConnectionChange newState: "+newState);
       executor.execute(new Runnable() {
         @Override
         public void run() {
-          Log.d(TAG, "IceConnectionState: " + newState);
           if (newState == IceConnectionState.CONNECTED) {
             events.onIceConnected();
           } else if (newState == IceConnectionState.DISCONNECTED) {

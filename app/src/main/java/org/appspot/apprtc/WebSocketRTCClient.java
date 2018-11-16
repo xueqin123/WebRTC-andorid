@@ -49,7 +49,7 @@ public class WebSocketRTCClient implements AppRTCClient, WebSocketChannelEvents 
   private final Handler handler;
   private boolean initiator;
   private SignalingEvents events;
-  private WebSocketChannelClient wsClient;
+  private WebSocketChannelClient wsClient; //信令服务客户端
   private ConnectionState roomState;
   private RoomConnectionParameters connectionParameters;
   private String messageUrl;
@@ -92,7 +92,7 @@ public class WebSocketRTCClient implements AppRTCClient, WebSocketChannelEvents 
   // Connects to room - function runs on a local looper thread.
   private void connectToRoomInternal() {
     String connectionUrl = getConnectionUrl(connectionParameters);
-    Log.d(TAG, "Connect to room: " + connectionUrl);
+    Log.d(TAG, "Connect to room: " + connectionUrl); // https://www.xueqingxue.cn/join/000001
     roomState = ConnectionState.NEW;
     wsClient = new WebSocketChannelClient(handler, this);
 
@@ -179,6 +179,7 @@ public class WebSocketRTCClient implements AppRTCClient, WebSocketChannelEvents 
     events.onConnectedToRoom(signalingParameters);
 
     // Connect and register WebSocket client.
+    Log.d(TAG, "Leave URL: " + leaveUrl +" signalingParameters.wssUrl: "+signalingParameters.wssUrl+" signalingParameters.wssPostUrl: +"+signalingParameters.wssPostUrl);
     wsClient.connect(signalingParameters.wssUrl, signalingParameters.wssPostUrl);
     wsClient.register(connectionParameters.roomId, signalingParameters.clientId);
   }

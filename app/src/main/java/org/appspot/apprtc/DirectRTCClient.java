@@ -107,6 +107,7 @@ public class DirectRTCClient implements AppRTCClient, TCPChannelClient.TCPChanne
     this.roomState = ConnectionState.NEW;
 
     String endpoint = connectionParameters.roomId;
+    Log.i(TAG," endpoint : "+endpoint);
 
     Matcher matcher = IP_PATTERN.matcher(endpoint);
     if (!matcher.matches()) {

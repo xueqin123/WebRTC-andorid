@@ -240,7 +240,7 @@ public class WebSocketChannelClient {
   private class WebSocketObserver implements WebSocketConnectionObserver {
     @Override
     public void onOpen() {
-      Log.d(TAG, "WebSocket connection opened to: " + wsServerUrl);
+      Log.d(TAG, " onOpen() WebSocket connection opened to: " + wsServerUrl);
       handler.post(new Runnable() {
         @Override
         public void run() {
