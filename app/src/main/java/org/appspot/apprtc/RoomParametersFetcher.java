@@ -89,7 +89,6 @@ public class RoomParametersFetcher {
             LinkedList<IceCandidate> iceCandidates = null;
             SessionDescription offerSdp = null;
             JSONObject roomJson = new JSONObject(response);
-            JsonPrintUtils.LogJson("Room response: ", response);
             String result = roomJson.getString("result");
             if (!result.equals("SUCCESS")) {
                 events.onSignalingParametersError("Room response error: " + result);
